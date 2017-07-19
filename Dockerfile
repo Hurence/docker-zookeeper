@@ -26,7 +26,7 @@ RUN mkdir /opt/jmx; cd /opt/jmx; wget https://repo1.maven.org/maven2/io/promethe
 ADD jmx_prometheus.yml /opt/jmx/jmx_prometheus.yml
 
 
-RUN sed -i  "s|ZOOMAIN="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=$JMXLOCALONLY org.apache.zookeeper.server.quorum.QuorumPeerMain"|ZOOMAIN="-javaagent:/opt/jmx/jmx_prometheus_javaagent-0.9.jar=7072:/opt/jmx/jmx_prometheus.yml -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=$JMXLOCALONLY org.apache.zookeeper.server.quorum.QuorumPeerMain"|g" $ZOO_HOME/bin/zkZerver.sh
+RUN sed -i  "s|ZOOMAIN=\"-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=$JMXLOCALONLY org.apache.zookeeper.server.quorum.QuorumPeerMain\"|ZOOMAIN=\"-javaagent:/opt/jmx/jmx_prometheus_javaagent-0.9.jar=7072:/opt/jmx/jmx_prometheus.yml -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=$JMXLOCALONLY org.apache.zookeeper.server.quorum.QuorumPeerMain\"|g" $ZOO_HOME/bin/zkZerver.sh
 
 
 #CMD /usr/sbin/sshd
