@@ -26,7 +26,7 @@ RUN mkdir /opt/jmx; cd /opt/jmx; wget https://repo1.maven.org/maven2/io/promethe
 ADD jmx_prometheus.yml /opt/jmx/jmx_prometheus.yml
 
 
-RUN sed -i 's|-Dcom.sun.management.jmxremote|-javaagent:/opt/jmx/jmx_prometheus_javaagent-0.9.jar=7072:/opt/jmx/jmx_prometheus.yml -Dcom.sun.management.jmxremote|g' $ZOO_HOME/bin/zkServer.sh
+RUN sed -i 's|-Dcom.sun.management.jmxremote |-javaagent:/opt/jmx/jmx_prometheus_javaagent-0.9.jar=7072:/opt/jmx/jmx_prometheus.yml -Dcom.sun.management.jmxremote |g' $ZOO_HOME/bin/zkServer.sh
 
 
 #CMD /usr/sbin/sshd
