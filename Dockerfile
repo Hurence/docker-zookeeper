@@ -13,7 +13,7 @@ RUN ssh-keygen -A
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.7-openjdk
 ENV ZK_HOME /opt/zookeeper-3.4.6
-RUN sed  -i "s|/tmp/zookeeper|$ZK_HOME/data|g" $ZK_HOME/conf/zoo.cfg; mkdir $ZK_HOME/data
+RUN sed  -i "s|/tmp/zookeeper|$ZOO_HOME/data|g" $ZK_HOME/conf/zoo.cfg; mkdir $ZK_HOME/data
 
 ADD start-zk.sh /usr/bin/start-zk.sh 
 EXPOSE 2181 2888 3888
@@ -21,4 +21,10 @@ EXPOSE 2181 2888 3888
 WORKDIR /opt/zookeeper-3.4.6
 VOLUME ["/opt/zookeeper-3.4.6/conf", "/opt/zookeeper-3.4.6/data"]
 
-CMD /usr/sbin/sshd && start-zk.sh
+
+RUN mkdir /opt/jmx; cd /opt/jmx; wget https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.9/jmx_prometheus_javaagent-0.9.jar
+ADD jmx-prometheus.yml /opt/jmx/jmx-prometheus.yml
+
+
+CMD /usr/sbin/sshd
+#CMD /usr/sbin/sshd && start-zk.sh
